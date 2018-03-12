@@ -6,6 +6,6 @@ This task can be done by trial and error, but the goal is for you to make sure t
 ## Instructions
 
 1. Clone the repo to your hardrive.
-1. You will edit the `index.js` file. Change the `0`'s in lines that say `console.log(0);` so that the numbers count sequentially. Start at 0 and increment by 1.
+1. You will edit the `index.js` file. Only change the `console.log(0)` lines so that it prints out the numbers 0 to 16 in order. Feel free to add your own `console.log()` to help debug.
 1. When you are finished, make a new repo on your personal GitHub account and push your changes there. (You will have to change the `remote` for the repo on your hard drive using `git` on the command line.)
 1. Remember you will need to be able to verbally explain how the code works, not just "get the right answer".
