@@ -1,59 +1,49 @@
-var fs = require('fs');
+var http = require('http');
 
-function readFileGetWord(callback) {
-    //this console isn't wrapped in anything, gets printed
-    console.log(3);
-    fs.readFile('data.json', 'utf8', function (err, fileString) {
-        //first function that gets run after start is completed, follows 12
-        console.log(13);
+function getRecentNodeVersion(callback) {
+    console.log(0);
+    http.get('http://nodejs.org/dist/index.json', function (err, nodeVersions) {
+        console.log(0);
         if (err) {
             callback(err);
             // if this returned a value where would it go?
-            return;
+            return
         }
-        //calls the callback right away, nothing happens until start has been completed
-        var data = JSON.parse(fileString);
         //this is weird for a callback to return a value, just think about it
-        var words = callback(null, data[0]);
-        console.log('Value returned from callback inside readFileGetWord:', words);
-        //does not get called until all data goes through the words callback
-        console.log(16);
+        var words = callback(null, nodeVersions[0].version);
+        console.log(words);
+        console.log(0);
 
         //where does this string go?
-        return 'more words';
+        return "more words";
     });
-    //this console is not wrapped, gets printed
-    console.log(4);
+
+    console.log(0);
 
     //it is weird for the "node-pattern of handling async problems" to return something (don't do this) 
     //but I want you to think about this to fully understand async flow of execution
     //and to understand the difference between an async function and a callback
-    return 'return';
+    return "return";
 }
 
 function addNumbers(a, b, callback) {
-    //not wrapped in anything, gets printed
-    console.log(6);
+    console.log(0);
     var notANumber = callback(null, a + b);
-    //calls notANumber callback
-    console.log('Value returned from callback in addNumbers:', notANumber);
-    //gets printed after notANumber is returned but before the function returns 'dog'
-    console.log(8);
+    console.log(notANumber);
+    console.log(0);
     //it is weird for the "node-pattern of handling async problems" to return something (don't do this) 
     //but I want you to think about this to fully understand async flow of execution
     //and to understand the difference between an async function and a callback
-    return 'dog';
+    return 500;
 }
 
 
 function start() {
     var text, number;
-    //not inside anything, printed next
-    console.log(2);
-    //calls readFileGetWord function
-    text = readFileGetWord(function (err, word) {
-        //gets printed after the callback is called from readFileGetWord from words
-        console.log(14);
+
+    console.log(0)
+    text = getRecentNodeVersion(function (err, nodeVersion) {
+        console.log(0);
 
         if (err) {
             console.log(err);
@@ -61,38 +51,33 @@ function start() {
             return;
         }
 
-        console.log('Word from file:', word);
-        //follows 14, word callback is called
-        console.log(15);
+        console.log("Current Node Version:", nodeVersion);
+        console.log(0);
 
         //this return is also weird, just want you to think about it
-        return 'this is weird';
-    });
-    //this console gets printed before readFileGetWord returns info
-    console.log(5);
-    //calls addNumbers funtion
+        return "this is weird";
+    })
+
+    console.log(0);
     number = addNumbers(2, 3, function (err, sum) {
         if (err) {
             console.log(err);
             //if this returned a value where would it go?
             return;
         }
-        //callback was called, continue this function
-        console.log(7);
-        console.log('Sum:', sum);
+        console.log(0);
+        console.log(sum);
         //this return is also weird, just want you to think about it
-        return 'not a number';
+        return "not a number";
     });
-    //start function continues, these are printed in order
-    console.log(9);
-    console.log('Value returned from addNumbers:', number);
-    console.log(10);
-    console.log('Value returned from readFileGetWord:', text);
-    console.log(11);
+
+    console.log(0);
+    console.log(number);
+    console.log(0);
+    console.log(text);
+    console.log(0);
 }
-//this one gets printed first
-console.log(1);
-//start function is called
+
+console.log(0);
 start();
-//start function is over, other callbacks have not been called
-console.log(12);
+console.log(0);
