@@ -9,10 +9,11 @@ function getRecentNodeVersion(callback) {
             parsedData;
 
         response.setEncoding('utf8');
+        //when is this called
         response.on('data', (chunk) => {
             rawData += chunk;
         });
-
+        //when is this called
         response.on('end', () => {
             try {
                 parsedData = JSON.parse(rawData);
