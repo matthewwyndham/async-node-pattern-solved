@@ -2,20 +2,43 @@ var http = require('http');
 
 function getRecentNodeVersion(callback) {
     console.log(0);
-    http.get('http://nodejs.org/dist/index.json', function (err, nodeVersions) {
-        console.log(0);
-        if (err) {
-            callback(err);
-            // if this returned a value where would it go?
-            return
-        }
-        //this is weird for a callback to return a value, just think about it
-        var words = callback(null, nodeVersions[0].version);
-        console.log(words);
+    https.get('https://nodejs.org/dist/index.json', function (response) {
         console.log(0);
 
+        var rawData = '',
+            parsedData;
+
+        response.setEncoding('utf8');
+        response.on('data', (chunk) => {
+            rawData += chunk;
+        });
+
+        response.on('end', () => {
+            try {
+                parsedData = JSON.parse(rawData);
+            } catch (e) {
+                console.error(e.message);
+            }
+                        
+            //this is weird for a callback to return a value, just think about it
+            var words = callback(null, parsedData[0].version);
+            console.log(words);
+            console.log(0);
+            
+            //where does this string go?
+            return "more words things";
+        });
+        
+        console.log(0);
         //where does this string go?
         return "more words";
+
+    }).on('error', (e) => {
+        //when would this be executed
+        callback(e);
+
+        // if this returned a value where would it go?
+        return "this is in the error"
     });
 
     console.log(0);
