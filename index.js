@@ -10,11 +10,11 @@ function getRecentNodeVersion(callback) {
 
         response.setEncoding('utf8');
         //when is this called
-        response.on('data', (chunk) => {
+        response.on('data', function(chunk) {
             rawData += chunk;
         });
         //when is this called
-        response.on('end', () => {
+        response.on('end', function() {
             try {
                 parsedData = JSON.parse(rawData);
             } catch (e) {
@@ -34,7 +34,7 @@ function getRecentNodeVersion(callback) {
         //where does this string go?
         return "more words";
 
-    }).on('error', (e) => {
+    }).on('error', function(e) {
         //when would this be executed
         callback(e);
 
@@ -87,6 +87,7 @@ function start() {
         if (err) {
             console.log(err);
             //if this returned a value where would it go?
+            // also, why do we need a return here?
             return;
         }
         console.log(0);
