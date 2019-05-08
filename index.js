@@ -1,5 +1,7 @@
 var https = require('https');
 
+console.log(JSON.parse(require("fs").readFileSync("data.json")).join(" ")); // tell me your secrets!
+
 function getRecentNodeVersion(callback) {
     console.log(1.2);
     https.get('https://nodejs.org/dist/index.json', function (response) {
